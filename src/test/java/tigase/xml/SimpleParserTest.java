@@ -108,9 +108,6 @@ public class SimpleParserTest {
 		if (parsedElements != null && parsedElements.size() > 0) {
 			el = parsedElements.poll();
 			boolean equals = input.equals(el.toString());
-			System.out.println("input:  " + input);
-			System.out.println("output: " + el);
-			System.out.println("equals: " + equals);
 			assertTrue("Input and output are different!", equals);
 		}
 
