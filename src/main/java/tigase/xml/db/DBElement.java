@@ -393,7 +393,7 @@ public class DBElement
 	}
 
 	public final int getEntryIntValue(String key, int def) {
-		return ((Integer) getEntryValue(key, Integer.valueOf(def))).intValue();
+		return (Integer) getEntryValue(key, def);
 	}
 
 	public final int[] getEntryIntArrValue(String key, int[] def) {
@@ -401,7 +401,7 @@ public class DBElement
 	}
 
 	public final double getEntryDoubleValue(String key, double def) {
-		return ((Double) getEntryValue(key, new Double(def))).doubleValue();
+		return ((Double) getEntryValue(key, def));
 	}
 
 	public final double[] getEntryDoubleArrValue(String key, double[] def) {
@@ -458,7 +458,7 @@ public class DBElement
 					break;
 
 				case DOUBLE:
-					result = new Double(Double.parseDouble(entry.getAttributeStaticStr(VALUE)));
+					result = Double.parseDouble(entry.getAttributeStaticStr(VALUE));
 
 					break;
 
