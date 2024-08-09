@@ -75,9 +75,9 @@ public class DomBuilderHandler
 				if (attr_names[i].toString().startsWith("xmlns:")) {
 					namespaces.put(attr_names[i].substring("xmlns:".length(), attr_names[i].length()),
 								   attr_values[i].toString());
-				} // end of if (att_name.startsWith("xmlns:"))
-			} // end of for (String att_name : attnames)
-		} // end of if (attr_names != null)
+				}
+			}
+		}
 
 		String tmp_name = name.toString();
 		String new_xmlns = null;
@@ -93,8 +93,8 @@ public class DomBuilderHandler
 					new_xmlns = namespaces.get(pref);
 					tmp_name = tmp_name.substring(pref.length() + 1, tmp_name.length());
 					prefix = pref;
-				} // end of if (tmp_name.startsWith(xmlns))
-			} // end of for (String xmlns: namespaces.keys())
+				}
+			}
 		}
 		Element elem = newElement(tmp_name, null, attr_names, attr_values);
 		String ns = elem.getXMLNS();
@@ -137,13 +137,13 @@ public class DomBuilderHandler
 			for (String pref : namespaces.keySet()) {
 				if (tmp_name_prefix.equals(pref)) {
 					tmp_name = tmp_name.substring(pref.length() + 1, tmp_name.length());
-				} // end of if (tmp_name.startsWith(xmlns))
-			} // end of for (String xmlns: namespaces.keys())
+				}
+			}
 		}
 
 		if (el_stack.isEmpty()) {
 			el_stack.push(newElement(tmp_name, null, null, null));
-		} // end of if (tmp_name.equals())
+		}
 
 		Element elem = el_stack.pop();
 		if (elem.getName() != tmp_name.intern()) {
@@ -155,7 +155,7 @@ public class DomBuilderHandler
 		}
 		else {
 			el_stack.peek().addChild(elem);
-		} // end of if (el_stack.isEmpty()) else
+		}
 		return true;
 	}
 
@@ -176,4 +176,4 @@ public class DomBuilderHandler
 		return customFactory.elementInstance(name, cdata, attnames, attvals);
 	}
 
-}// DomBuilderHandler
+}

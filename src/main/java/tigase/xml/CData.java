@@ -39,7 +39,7 @@ public class CData
 			result = (CData) super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
-		}    // end of try-catch
+		}
 
 		return result;
 	}

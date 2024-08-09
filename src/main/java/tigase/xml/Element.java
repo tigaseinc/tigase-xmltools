@@ -60,7 +60,7 @@ public class Element
 		if (args.length < 1) {
 			System.err.println("You must give file name as parameter.");
 			System.exit(1);
-		}    // end of if (args.length < 1)
+		}
 
 		FileReader file = new FileReader(args[0]);
 		char[] buff = new char[1];
@@ -108,14 +108,14 @@ public class Element
 		setName(argName);
 		if (att_names != null) {
 			setAttributes(att_names, att_values);
-		}    // end of if (att_names != null)
+		}
 	}
 
 	public Element(String argName, Element[] children, String[] att_names, String[] att_values) {
 		setName(argName);
 		if (att_names != null) {
 			setAttributes(att_names, att_values);
-		}    // end of if (att_names != null)
+		}
 		addChildren(Arrays.asList(children));
 	}
 
@@ -126,7 +126,7 @@ public class Element
 		}
 		if (att_names != null) {
 			setAttributes(att_names, att_values);
-		}    // end of if (att_names != null)
+		}
 	}
 
 	public Element(String argName, String argCData, StringBuilder[] att_names, StringBuilder[] att_values) {
@@ -136,7 +136,7 @@ public class Element
 		}
 		if (att_names != null) {
 			setAttributes(att_names, att_values);
-		}    // end of if (att_names != null)
+		}
 	}
 
 	public void addAttribute(String attName, String attValue) {
@@ -162,7 +162,7 @@ public class Element
 		}
 		if (children == null) {
 			children = new LinkedList<XMLNodeIfc>();
-		}    // end of if (children == null)
+		}
 		children.add(child);
 
 		// Collections.sort(children);
@@ -171,13 +171,13 @@ public class Element
 	public void addChildren(List<Element> children) {
 		if (children == null) {
 			return;
-		}    // end of if (children == null)
+		}
 		if (this.children == null) {
 			this.children = new LinkedList<XMLNodeIfc>();
-		}    // end of if (children == null)
+		}
 		for (XMLNodeIfc child : children) {
 			this.children.add(child.clone());
-		}    // end of for (Element child: children)
+		}
 
 		// this.children.addAll(children);
 		// Collections.sort(children);
@@ -203,8 +203,8 @@ public class Element
 						result.append(child.toString());
 					}
 				}
-			}    // end of for ()
-		}        // end of if (child != null)
+			}
+		}
 	}
 
 	public String childrenToStringPretty() {
@@ -218,8 +218,8 @@ public class Element
 				if (child != null) {
 					result.append(child.toStringPretty());
 				}
-			}    // end of for ()
-		}        // end of if (child != null)
+			}
+		}
 
 		return (result.length() > 0) ? result.toString() : null;
 	}
@@ -244,8 +244,8 @@ public class Element
 						result.append(child.toStringSecure());
 					}
 				}
-			}    // end of for ()
-		}        // end of if (child != null)
+			}
+		}
 	}
 
 	@SuppressWarnings({"unchecked"})
@@ -257,17 +257,17 @@ public class Element
 			result = (Element) super.clone();
 		} catch (CloneNotSupportedException e) {
 			throw new InternalError();
-		}    // end of try-catch
+		}
 		if (attributes != null) {
 			result.attributes = (XMLIdentityHashMap<String, String>) attributes.clone();
 		} else {
 			result.attributes = null;
-		}    // end of else
+		}
 		if (children != null) {
 			result.setChildren(children);
 		} else {
 			result.children = null;
-		}    // end of else
+		}
 
 		return result;
 	}
@@ -412,7 +412,7 @@ public class Element
 	public String getAttribute(String attName) {
 		if (attributes != null) {
 			return attributes.get(attName.intern());
-		}    // end of if (attributes != null)
+		}
 
 		return null;
 	}
@@ -446,7 +446,7 @@ public class Element
 	public String getAttributeStaticStr(String attName) {
 		if (attributes != null) {
 			return attributes.get(attName);
-		}    // end of if (attributes != null)
+		}
 
 		return null;
 	}
@@ -521,8 +521,8 @@ public class Element
 					((CData) child).setCdata(argCData);
 					return;
 				}
-			}    // end of for ()
-		}        // end of if (child != null)
+			}
+		}
 
 		addChild(new CData(argCData));
 	}
@@ -538,7 +538,7 @@ public class Element
 					}
 				}
 			}
-		}    // end of if (children != null)
+		}
 
 		return null;
 	}
@@ -554,7 +554,7 @@ public class Element
 					}
 				}
 			}
-		}    // end of if (children != null)
+		}
 
 		return null;
 	}
@@ -574,7 +574,7 @@ public class Element
 					}
 				}
 			}
-		}    // end of if (children != null)
+		}
 
 		return null;
 	}
@@ -593,7 +593,7 @@ public class Element
 					}
 				}
 			}
-		}    // end of if (children != null)
+		}
 
 		return null;
 	}
@@ -646,7 +646,7 @@ public class Element
 		this.children = new LinkedList<XMLNodeIfc>();
 		for (XMLNodeIfc child : children) {
 			this.children.add(child.clone());
-		}    // end of for (Element child: children)
+		}
 
 		// Collections.sort(children);
 	}
@@ -769,7 +769,7 @@ public class Element
 	public void removeAttribute(String key) {
 		if (attributes != null) {
 			attributes.remove(key.intern());
-		}    // end of if (attributes == null)
+		}
 	}
 
 	public boolean removeChild(Element child) {
@@ -777,7 +777,7 @@ public class Element
 
 		if (children != null) {
 			res = children.remove(child);
-		}    // end of if (children == null)
+		}
 
 		return res;
 	}
@@ -787,13 +787,13 @@ public class Element
 
 		if (child != null) {
 			child.setAttribute(att_name, att_value);
-		}    // end of if (child != null)
+		}
 	}
 
 	public void setAttribute(String key, String value) {
 		if (attributes == null) {
 			attributes = new XMLIdentityHashMap<String, String>(5);
-		}    // end of if (attributes == null)
+		}
 		String k = key.intern();
 		String v = value;
 
@@ -811,8 +811,8 @@ public class Element
 				setAttribute(names[i].toString(), values[i].toString());
 
 				// attributes.put(names[i].toString().intern(), values[i].toString());
-			}    // end of if (names[i] != null)
-		}      // end of for (int i = 0; i < names.length; i++)
+			}
+		}
 	}
 
 	public void setAttributes(String[] names, String[] values) {
@@ -822,8 +822,8 @@ public class Element
 				setAttribute(names[i], values[i]);
 
 				// attributes.put(names[i].intern(), values[i]);
-			}    // end of if (names[i] != null)
-		}      // end of for (int i = 0; i < names.length; i++)
+			}
+		}
 	}
 
 	public void setDefXMLNS(String ns) {
@@ -843,8 +843,8 @@ public class Element
 		if (attributes != null) {
 			for (String key : attributes.keySet()) {
 				result.append(" ").append(key).append("=\"").append(attributes.get(key)).append("\"");
-			}    // end of for ()
-		}      // end of if (attributes != null)
+			}
+		}
 
 		if (children != null && !children.isEmpty()) {
 			result.append(">");
@@ -863,8 +863,8 @@ public class Element
 		if (attributes != null) {
 			for (String key : attributes.keySet()) {
 				result.append(" ").append(key).append("=\"").append(attributes.get(key)).append("\"");
-			}    // end of for ()
-		}      // end of if (attributes != null)
+			}
+		}
 
 		String childrenStr = childrenToStringPretty();
 
@@ -889,8 +889,8 @@ public class Element
 		if (attributes != null) {
 			for (String key : attributes.keySet()) {
 				result.append(" ").append(key).append("=\"").append(attributes.get(key)).append("\"");
-			}    // end of for ()
-		}      // end of if (attributes != null)
+			}
+		}
 
 		String cdata = cdataToString();
 
@@ -898,7 +898,7 @@ public class Element
 			result.append(">");
 			if (cdata != null) {
 				result.append(cdata);
-			}    // end of if (cdata != null)
+			}
 			result.append("</").append(name).append(">");
 		} else {
 			result.append("/>");
@@ -920,8 +920,8 @@ public class Element
 		if (attributes != null) {
 			for (String key : attributes.keySet()) {
 				result.append(" ").append(key).append("=\"").append(attributes.get(key)).append("\"");
-			}    // end of for ()
-		}      // end of if (attributes != null)
+			}
+		}
 
 		if (children != null && !children.isEmpty()) {
 			result.append(">");
@@ -974,8 +974,8 @@ public class Element
 				if ((child != null) && (child instanceof CData)) {
 					result.append(child.toString());
 				}
-			}    // end of for ()
-		}        // end of if (child != null)
+			}
+		}
 
 		return (result.length() > 0) ? result.toString() : null;
 	}
@@ -1005,5 +1005,5 @@ public class Element
 			return super.put(key, value);
 		}
 	}
-}    // Element
+}
 

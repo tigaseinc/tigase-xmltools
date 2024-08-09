@@ -58,7 +58,7 @@ public abstract class Types {
 			DataType result = UNDEFINED;
 			if (javaType != null && !javaType.equals("")) {
 				result = dataTypeMap.get(javaType);
-			} // end of if (javaType != null && !javaType.equals(""))
+			}
 			return result == null ? UNDEFINED : result;
 		}
 
@@ -69,16 +69,16 @@ public abstract class Types {
 			this.javaType = java_type;
 			if (java_type != null) {
 				dataTypeMap.put(java_type, this);
-			} // end of if (java_type != null)
+			}
 		}
 
 		public String toString() {
 			if (javaType == null) {
 				return String.class.getSimpleName();
-			} // end of if (javaType == null)
+			}
 			else {
 				return javaType;
-			} // end of if (javaType == null) else
+			}
 		}
 
 	} // DataType

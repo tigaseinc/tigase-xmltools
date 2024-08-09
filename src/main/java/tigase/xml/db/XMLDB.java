@@ -187,10 +187,10 @@ public class XMLDB {
 
 			for (Element child : children) {
 				results.add(child.getAttributeStaticStr(DBElement.NAME));
-			}    // end of for (Element child: children)
+			}
 
 			return results;
-		}      // end of if (children != null)
+		}
 
 		return null;
 	}
@@ -214,7 +214,7 @@ public class XMLDB {
 
 			if (idx >= 0) {
 				dbel = nodes[idx];
-			}      // end of if (idx >= 0)
+			}
 			if (nodes_modified && ((idx < 0) || ((dbel != null) && dbel.removed))) {
 				List<Element> children = root.getChildren();
 
@@ -222,15 +222,15 @@ public class XMLDB {
 					nodes = children.toArray(new DBElement[children.size()]);
 					Arrays.sort(nodes, comparator);
 					idx = Arrays.binarySearch(nodes, tmp_node, comparator);
-				}    // end of if (children != null)
+				}
 				nodes_modified = false;
-			}      // end of if (idx < 0)
+			}
 			if (idx >= 0) {
 				result = nodes[idx];
 			}
 		} finally {
 			lock.unlock();
-		}        // end of try-finally
+		}
 
 		return result;
 	}
@@ -256,10 +256,10 @@ public class XMLDB {
 
 				newNode1.addChild(new DBElement(DBElement.MAP));
 				root.addChild(newNode1);
-			}    // end of try-catch
+			}
 		} finally {
 			lock.unlock();
-		}      // end of try-finally
+		}
 	}
 
 	/**
@@ -279,7 +279,7 @@ public class XMLDB {
 			dbel.removed = true;
 		} finally {
 			lock.unlock();
-		}    // end of try-finally
+		}
 		saveDB();
 	}
 
@@ -579,10 +579,10 @@ public class XMLDB {
 		}
 		if (root_name != null) {
 			this.root_name = root_name;
-		}    // end of if (root_name != null)
+		}
 		if (node1_name != null) {
 			this.node_name = node1_name;
-		}    // end of if (node1_name != null)
+		}
 		tmp_node = new DBElement(node1_name);
 		log.log(Level.TRACE, "Created tmp_node1: {0}", new Object[]{tmp_node});
 		root = new DBElement(this.root_name);
@@ -621,7 +621,7 @@ public class XMLDB {
 
 		if ((children != null) && (children.size() > 0)) {
 			this.node_name = children.get(0).getName();
-		}    // end of if (children != null && children.size() > 0)
+		}
 		log.log(Level.TRACE, root.formatedString(0, 2));
 	}
 
@@ -643,7 +643,7 @@ public class XMLDB {
 			return result;
 		} else {
 			throw new NodeNotFoundException("Node1: " + node1_id + " has not been found in db.");
-		}    // end of if (result != null) else
+		}
 	}
 
 	/**
@@ -669,7 +669,7 @@ public class XMLDB {
 
 			if ((node == null) && auto_create) {
 				node = node1.buildNodesTree(subnode);
-			}    // end of if (subnode != null)
+			}
 
 			return node;
 		}
@@ -695,7 +695,7 @@ public class XMLDB {
 			}
 		} finally {
 			lock.unlock();
-		}    // end of try-finally
+		}
 	}
 
 	/**
@@ -741,8 +741,8 @@ public class XMLDB {
 				} catch (Exception e) {
 					log.log(Level.ERROR, "Can't save repository file: " + e);
 				}
-			}    // end of while (true)
+			}
 		}
 	}
-}    // XMLDB
+}
 

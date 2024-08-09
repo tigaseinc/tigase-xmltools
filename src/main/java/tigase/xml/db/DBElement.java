@@ -80,8 +80,8 @@ public class DBElement
 		if (attributes != null) {
 			for (String key : attributes.keySet()) {
 				result.append(" " + key + "=\"" + attributes.get(key) + "\"");
-			}    // end of for ()
-		}      // end of if (attributes != null)
+			}
+		}
 
 		String childrenStr = childrenFormatedString(indent + step, step);
 		String cdata = getCData();
@@ -90,7 +90,7 @@ public class DBElement
 			result.append(">");
 			if (cdata != null) {
 				result.append(cdata.trim());
-			}    // end of if (cdata != null)
+			}
 			result.append(childrenStr);
 			result.append("\n");
 			for (int i = 0; i < indent; i++) {
@@ -115,9 +115,9 @@ public class DBElement
 					} else {
 						result.append(child.toString());
 					}
-				}    // end of for ()
+				}
 			}
-		}        // end of if (child != null)
+		}
 
 		return result.toString();
 	}
@@ -125,7 +125,7 @@ public class DBElement
 	public final DBElement getSubnode(String name) {
 		if (children == null) {
 			return null;
-		}    // end of if (children == null)
+		}
 		synchronized (children) {
 			for (XMLNodeIfc el : children) {
 				if (el instanceof Element) {
@@ -133,9 +133,9 @@ public class DBElement
 
 					if (elem.getName().equals(NODE) && elem.getAttributeStaticStr(NAME).equals(name)) {
 						return (DBElement) elem;
-					}    //
+					}
 				}
-			}        // end of for (DBElement node : children)
+			}
 		}
 
 		return null;
@@ -144,7 +144,7 @@ public class DBElement
 	public final String[] getSubnodes() {
 		if ((children == null) || (children.size() == 1)) {
 			return null;
-		}    // end of if (children == null)
+		}
 
 		// Minus <map/> element
 		String[] result = new String[children.size() - 1];
@@ -158,9 +158,9 @@ public class DBElement
 
 					if (elem.getName().equals(NODE)) {
 						result[idx++] = elem.getAttributeStaticStr(NAME);
-					}    //
+					}
 				}
-			}        // end of for (DBElement node : children)
+			}
 		}
 
 		return result;
@@ -171,13 +171,13 @@ public class DBElement
 
 		if (!getName().equals(NODE) || !getAttributeStaticStr(NAME).equals(strtok.nextToken())) {
 			return null;
-		}    // end of if (!strtok.nextToken().equals(child.getName()))
+		}
 
 		DBElement node = this;
 
 		while (strtok.hasMoreTokens() && (node != null)) {
 			node = node.getSubnode(strtok.nextToken());
-		}    // end of while (strtok.hasMoreTokens())
+		}
 
 		return node;
 	}
@@ -190,12 +190,12 @@ public class DBElement
 		while (strtok.hasMoreTokens() && (node != null)) {
 			parent = node;
 			node = node.getSubnode(strtok.nextToken());
-		}    // end of while (strtok.hasMoreTokens())
+		}
 		if ((parent != null) && (node != null)) {
 
 			// boolean res = parent.removeChild(node);
 			parent.removeChild(node);
-		}    // end of if (parent != null && node != null)
+		}
 	}
 
 	public final DBElement getSubnodePath(String nodePath) {
@@ -210,8 +210,8 @@ public class DBElement
 				node = tmp;
 			} else {
 				return null;
-			}    // end of if (node.getSubnode() != null) else
-		}      // end of while (strtok.hasMoreTokens())
+			}
+		}
 
 		return node;
 	}
@@ -226,14 +226,14 @@ public class DBElement
 
 			if (tmp != null) {
 				node = tmp;
-			}      // end of if (node.getSubnode() != null)
+			}
 			else {
 				if (token.equals("") || token.equals("null")) {
 					return null;
-				}    // end of if (token.equals("") || token.equals("null"))
+				}
 				node = node.newSubnode(token);
-			}      // end of if (node.getSubnode() != null) else
-		}        // end of while (strtok.hasMoreTokens())
+			}
+		}
 
 		return node;
 	}
@@ -258,8 +258,8 @@ public class DBElement
 						result = (DBElement) elem;
 
 						break;
-					}    //
-				}      // end of for (DBElement node : children)
+					}
+				}
 			}
 		}
 
@@ -278,8 +278,8 @@ public class DBElement
 						toRemove = el;
 
 						break;
-					}    //
-				}      // end of for (DBElement node : children)
+					}
+				}
 				if (toRemove != null) {
 					getChild(MAP).removeChild(toRemove);
 				}
@@ -300,7 +300,7 @@ public class DBElement
 
 				for (Element dbe : entries) {
 					result[cnt++] = dbe.getAttributeStaticStr(KEY);
-				}    // end of for (DBElement dbe : entries)
+				}
 			}
 
 			return result;
@@ -315,7 +315,7 @@ public class DBElement
 		if (result == null) {
 			result = new DBElement(ENTRY, KEY, key);
 			getChild(MAP).addChild(result);
-		}    // end of if (result == null)
+		}
 
 		return result;
 	}
@@ -328,40 +328,40 @@ public class DBElement
 		if (value.getClass().isArray()) {
 			if (entry.getChildren() != null) {
 				entry.getChildren().clear();
-			}      // end of if (entry.getChildren() != null)
+			}
 			switch (type) {
 				case INTEGER_ARR:
 					for (int val : (int[]) value) {
 						entry.addChild(new DBElement("item", VALUE, encode(val)));
-					}    // end of for (String val : values)
+					}
 
 					break;
 
 				case DOUBLE_ARR:
 					for (double val : (double[]) value) {
 						entry.addChild(new DBElement("item", VALUE, encode(val)));
-					}    // end of for (String val : values)
+					}
 
 					break;
 
 				case BOOLEAN_ARR:
 					for (boolean val : (boolean[]) value) {
 						entry.addChild(new DBElement("item", VALUE, encode(val)));
-					}    // end of for (String val : values)
+					}
 
 					break;
 
 				default:
 					for (Object val : (Object[]) value) {
 						entry.addChild(new DBElement("item", VALUE, encode(val)));
-					}    // end of for (String val : values)
+					}
 
 					break;
-			}      // end of switch (type)
-		}        // end of if (value.getClass().isArray())
+			}
+		}
 		else {
 			entry.setAttribute(VALUE, encode(value));
-		}        // end of if (value.getClass().isArray()) else
+		}
 	}
 
 	public final String getEntryStringValue(String key, String def) {
@@ -387,7 +387,7 @@ public class DBElement
 				result = new String[]{result.toString()};
 
 				break;
-		}    // end of switch (type)
+		}
 
 		return (String[]) result;
 	}
@@ -432,7 +432,7 @@ public class DBElement
 
 					for (String tmp : tmp_s) {
 						tmp_i[++idx] = Integer.decode(tmp).intValue();
-					}    // end of for (String tmp : tmp_s)
+					}
 					result = tmp_i;
 
 					break;
@@ -447,7 +447,7 @@ public class DBElement
 
 					for (String tmp : tmp_s) {
 						tmp_l[++idx] = Long.decode(tmp).longValue();
-					}    // end of for (String tmp : tmp_s)
+					}
 					result = tmp_l;
 
 					break;
@@ -467,7 +467,7 @@ public class DBElement
 
 					for (String tmp : tmp_s) {
 						tmp_f[++idx] = Double.parseDouble(tmp);
-					}    // end of for (String tmp : tmp_s)
+					}
 					result = tmp_f;
 
 					break;
@@ -482,7 +482,7 @@ public class DBElement
 
 					for (String tmp : tmp_s) {
 						tmp_b[++idx] = parseBool(tmp);
-					}    // end of for (String tmp : tmp_s)
+					}
 					result = tmp_b;
 
 					break;
@@ -492,11 +492,11 @@ public class DBElement
 					result = decode(entry.getAttributeStaticStr(VALUE));
 
 					break;
-			}      // end of switch (type)
-		}        // end of try
+			}
+		}
 		catch (NullPointerException e) {
 			result = def;
-		}        // end of try-catch
+		}
 
 		return result;
 	}
@@ -506,7 +506,7 @@ public class DBElement
 			return URLEncoder.encode(source.toString(), "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			return source.toString();
-		}    // end of try-catch
+		}
 	}
 
 	private String decode(final String source) {
@@ -514,7 +514,7 @@ public class DBElement
 			return URLDecoder.decode(source, "UTF-8");
 		} catch (UnsupportedEncodingException e) {
 			return source;
-		}    // end of try-catch
+		}
 	}
 
 	private boolean parseBool(final String val) {
@@ -534,14 +534,14 @@ public class DBElement
 
 				for (Element item : items) {
 					result[cnt++] = decode(item.getAttributeStaticStr(VALUE));
-				}    // end of for (DBElement dbe : entries)
+				}
 
 				return result;
-			}      // end of if (items != null)
-		}        // end of if (entry != null)
+			}
+		}
 
 		return null;
 	}
 	
-}    // DBElement
+}
 

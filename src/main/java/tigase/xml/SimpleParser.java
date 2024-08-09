@@ -121,7 +121,7 @@ public class SimpleParser {
 
 		if (parser_state == null) {
 			parser_state = new ParserState();
-		}    // end of if (parser_state == null)
+		}
 
 		for (int index = off; index < len; index++) {
 			char chr = data[index];
@@ -144,7 +144,7 @@ public class SimpleParser {
 					if (chr == OPEN_BRACKET) {
 						parser_state.state = State.OPEN_BRACKET;
 						parser_state.slash_found = false;
-					}    // end of if (chr == OPEN_BRACKET)
+					}
 
 					// Skip everything up to open bracket
 					break;
@@ -173,15 +173,15 @@ public class SimpleParser {
 									parser_state.errorMessage = "Not allowed character in start element name: " + chr;
 
 									break;
-								}    // end of if ()
+								}
 
 								parser_state.state = State.ELEMENT_NAME;
 								parser_state.element_name = new StringBuilder(10);
 								parser_state.element_name.append(chr);
-							}    // end of if ()
+							}
 
 							break;
-					}        // end of switch (chr)
+					}
 
 					break;
 
@@ -190,13 +190,13 @@ public class SimpleParser {
 						parser_state.state = State.END_ELEMENT_NAME;
 
 						break;
-					}        // end of if ()
+					}
 
 					if (chr == SLASH) {
 						parser_state.slash_found = true;
 
 						break;
-					}        // end of if (chr == SLASH)
+					}
 
 					if (chr == CLOSE_BRACKET) {
 						parser_state.state = State.ELEMENT_CDATA;
@@ -211,7 +211,7 @@ public class SimpleParser {
 						parser_state.element_name = null;
 
 						break;
-					}    // end of if ()
+					}
 
 					if (!checkIsCharValidNameChar(chr, false)) {
 						parser_state.state = State.ERROR;
@@ -219,7 +219,7 @@ public class SimpleParser {
 								"\nExisting characters in start element name: " + parser_state.element_name.toString();
 
 						break;
-					}    // end of if ()
+					}
 
 					parser_state.element_name.append(chr);
 
@@ -235,7 +235,7 @@ public class SimpleParser {
 				case CLOSE_ELEMENT:
 					if (isWhite(chr)) {
 						break;
-					}    // end of if ()
+					}
 
 					if (chr == SLASH) {
 						parser_state.state = State.ERROR;
@@ -243,7 +243,7 @@ public class SimpleParser {
 								"\nExisting characters in close element name: " + parser_state.element_name.toString();
 
 						break;
-					}    // end of if (chr == SLASH)
+					}
 
 					if (chr == CLOSE_BRACKET) {
 						parser_state.state = State.ELEMENT_CDATA;
@@ -259,7 +259,7 @@ public class SimpleParser {
 						parser_state.element_name = null;
 
 						break;
-					}    // end of if ()
+					}
 
 					if (!checkIsCharValidNameChar(chr, parser_state.element_name.isEmpty())) {
 						parser_state.state = State.ERROR;
@@ -267,7 +267,7 @@ public class SimpleParser {
 								"\nExisting characters in close element name: " + parser_state.element_name.toString();
 
 						break;
-					}    // end of if ()
+					}
 
 					parser_state.element_name.append(chr);
 
@@ -285,7 +285,7 @@ public class SimpleParser {
 						parser_state.slash_found = true;
 
 						break;
-					}    // end of if (chr == SLASH)
+					}
 
 					if (chr == CLOSE_BRACKET) {
 						parser_state.state = State.ELEMENT_CDATA;
@@ -304,7 +304,7 @@ public class SimpleParser {
 						parser_state.element_name = null;
 
 						break;
-					}      // end of if ()
+					}
 
 					if (!isWhite(chr)) {
 						parser_state.state = State.ATTRIB_NAME;
@@ -337,13 +337,13 @@ public class SimpleParser {
 									parser_state.attrib_values = resizeArray(parser_state.attrib_values, new_size);
 								}
 							}
-						}    // end of else
+						}
 
 						parser_state.attrib_names[++parser_state.current_attr] = new StringBuilder(8);
 						parser_state.attrib_names[parser_state.current_attr].append(chr);
 
 						break;
-					}      // end of if ()
+					}
 
 					// do nothing, skip white chars
 					break;
@@ -353,7 +353,7 @@ public class SimpleParser {
 						parser_state.state = State.END_OF_ATTR_NAME;
 
 						break;
-					}    // end of if ()
+					}
 
 					if (!checkIsCharValidNameChar(chr, false)) {
 						parser_state.state = State.ERROR;
@@ -362,7 +362,7 @@ public class SimpleParser {
 								parser_state.attrib_names[parser_state.current_attr].toString();
 
 						break;
-					}    // end of if ()
+					}
 
 					parser_state.attrib_names[parser_state.current_attr].append(chr);
 
@@ -379,12 +379,12 @@ public class SimpleParser {
 					if (chr == SINGLE_QUOTE) {
 						parser_state.state = State.ATTRIB_VALUE_S;
 						parser_state.attrib_values[parser_state.current_attr] = new StringBuilder(64);
-					}    // end of if (chr == SINGLE_QUOTE || chr == DOUBLE_QUOTE)
+					}
 
 					if (chr == DOUBLE_QUOTE) {
 						parser_state.state = State.ATTRIB_VALUE_D;
 						parser_state.attrib_values[parser_state.current_attr] = new StringBuilder(64);
-					}    // end of if (chr == SINGLE_QUOTE || chr == DOUBLE_QUOTE)
+					}
 
 					// Skip white characters and actually everything except quotes
 					break;
@@ -394,7 +394,7 @@ public class SimpleParser {
 						parser_state.state = State.END_ELEMENT_NAME;
 
 						break;
-					}    // end of if (chr == SINGLE_QUOTE || chr == DOUBLE_QUOTE)
+					}
 
 					if (chr == DOUBLE_QUOTE) {
 						parser_state.attrib_values[parser_state.current_attr].append("&quot;");
@@ -432,7 +432,7 @@ public class SimpleParser {
 						parser_state.state = State.END_ELEMENT_NAME;
 
 						break;
-					}    // end of if (chr == SINGLE_QUOTE || chr == DOUBLE_QUOTE)
+					}
 					
 					if (chr == SINGLE_QUOTE) {
 						parser_state.attrib_values[parser_state.current_attr].append("&apos;");
@@ -473,7 +473,7 @@ public class SimpleParser {
 						if (parser_state.element_cdata != null) {
 							handler.elementCData(parser_state.element_cdata);
 							parser_state.element_cdata = null;
-						}    // end of if (parser_state.element_cdata != null)
+						}
 
 						break;
 					} else {
@@ -485,7 +485,7 @@ public class SimpleParser {
 
 //            parser_state.element_cdata.append(chr);
 //            }// end of if (Arrays.binarySearch(WHITE_CHARS, chr) < 0)
-						}    // end of if (parser_state.element_cdata == null) else
+						}
 
 						parser_state.element_cdata.append(chr);
 						if (chr == '&') {
@@ -581,11 +581,11 @@ public class SimpleParser {
 						parser_state.element_cdata = null;
 
 						break;
-					}    // end of if (chr == CLOSE_BRACKET)
+					}
 
 					if (parser_state.element_cdata == null) {
 						parser_state.element_cdata = new StringBuilder(100);
-					}    // end of if (parser_state.element_cdata == null) else
+					}
 
 					parser_state.element_cdata.append(chr);
 
@@ -608,8 +608,8 @@ public class SimpleParser {
 					assert false : "Unknown SimpleParser state: " + parser_state.state;
 
 					break;
-			}    // end of switch (state)
-		}      // end of for ()
+			}
+		}
 
 		handler.saveParserState(parser_state);
 	}
@@ -684,9 +684,6 @@ public class SimpleParser {
 		return false;
 	}
 
-	//private boolean ignore(char chr) {
-//  return Arrays.binarySearch(IGNORE_CHARS, chr) >= 0;
-//}
 	private StringBuilder[] initArray(int size) {
 		StringBuilder[] array = new StringBuilder[size];
 
@@ -706,8 +703,6 @@ public class SimpleParser {
 		}
 
 		return false;
-
-		// return Arrays.binarySearch(WHITE_CHARS, chr) >= 0;
 	}
 
 	private StringBuilder[] resizeArray(StringBuilder[] src, int size) {
@@ -757,6 +752,6 @@ public class SimpleParser {
 		boolean slash_found = false;
 		State state = State.START;
 	}
-}    // SimpleParser
+}
 
 

@@ -48,7 +48,7 @@ public abstract class XMLUtils {
 		if (args.length < 1) {
 			System.err.println("You must give a file name as a parameter.");
 			System.exit(1);
-		}    // end of if (args.length < 1)
+		}
 
 		FileReader file = new FileReader(args[0]);
 		char[] buff = new char[16 * 1024];

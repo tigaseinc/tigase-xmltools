@@ -49,4 +49,4 @@ public interface SimpleHandler {
 	@TODO(note = "Use generic types to store parser data.")
 	Object restoreParserState();
 
-}// SimpleHandler
+}

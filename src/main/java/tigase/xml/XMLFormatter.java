@@ -45,7 +45,7 @@ public class XMLFormatter
 		if (args.length < 1) {
 			System.err.println("You must give file name as parameter.");
 			System.exit(1);
-		} // end of if (args.length < 1)
+		}
 
 		FileReader file = new FileReader(args[0]);
 		char[] buff = new char[1];
@@ -55,7 +55,7 @@ public class XMLFormatter
 			formatter = new XMLFormatter(new FileOutputStream(args[1]));
 		} else {
 			formatter = new XMLFormatter(System.out);
-		} // end of if (args.length == 2) else
+		}
 		int result = -1;
 		while ((result = file.read(buff)) != -1) {
 			parser.parse(formatter, buff, 0, result);
@@ -142,4 +142,4 @@ public class XMLFormatter
 		output.println(extra);
 	}
 
-} // XMLFormatter
+}

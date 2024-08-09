@@ -35,11 +35,9 @@ public class DefaultElementFactory
 	public DefaultElementFactory() {
 	}
 
-	// Implementation of tigase.xml.ElementFactory
-
 	public final Element elementInstance(final String name, final String cdata, final StringBuilder[] attnames,
 										 final StringBuilder[] attvals) {
 		return new Element(name, cdata, attnames, attvals);
 	}
 
-} // DefaultElementFactory
+}

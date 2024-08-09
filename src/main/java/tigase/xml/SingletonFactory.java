@@ -36,8 +36,8 @@ public class SingletonFactory {
 	public static SimpleParser getParserInstance() {
 		if (parser == null) {
 			parser = new SimpleParser();
-		} // end of if (parser == null;)
+		}
 		return parser;
 	}
 
-}// SingletonFactory
+}
