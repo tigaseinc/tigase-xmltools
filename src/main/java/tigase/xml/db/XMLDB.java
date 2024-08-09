@@ -28,8 +28,8 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.concurrent.locks.Lock;
 import java.util.concurrent.locks.ReentrantLock;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.lang.System.Logger.Level;
+import java.lang.System.Logger;
 
 /**
  * <code>XMLDB</code> is the main database access class. It allows you to create new database in given file, open
@@ -66,7 +66,7 @@ import java.util.logging.Logger;
  */
 public class XMLDB {
 
-	private static Logger log = Logger.getLogger("tigase.xml.db.XMLDB");
+	private static Logger log = System.getLogger(XMLDB.class.getName());
 
 	/** file saver task */
 	private final DBSaver db_saver = new DBSaver();
@@ -294,7 +294,7 @@ public class XMLDB {
 	 * @throws NodeNotFoundException when node doesn't exist on first level
 	 */
 	public void setData(String node1_id, String subnode, String key, Object value) throws NodeNotFoundException {
-		log.log(Level.FINEST, "Getting node, node1_id: {0}, subnode: {1}, key: {2}, value: {3} @ {4}",
+		log.log(Level.TRACE, "Getting node, node1_id: {0}, subnode: {1}, key: {2}, value: {3} @ {4}",
 				new Object[]{node1_id, subnode, key, value, this});
 		getNode(node1_id, subnode, true).setEntry(key, value);
 		saveDB();
@@ -571,7 +571,7 @@ public class XMLDB {
 	 * @param node1_name name of the node
 	 */
 	protected void setupNewDB(String db_file, String root_name, String node1_name) {
-		log.log(Level.FINEST, "Created new XML Database, db_file: {0}, root_name: {1}, node_name: {2} @ {3}",
+		log.log(Level.TRACE, "Created new XML Database, db_file: {0}, root_name: {1}, node_name: {2} @ {3}",
 				new Object[]{db_file, root_name, node1_name, this});
 		this.dbFile = db_file;
 		if (db_file.startsWith("memory://")) {
@@ -584,9 +584,9 @@ public class XMLDB {
 			this.node_name = node1_name;
 		}    // end of if (node1_name != null)
 		tmp_node = new DBElement(node1_name);
-		log.log(Level.FINEST, "Created tmp_node1: {0}", new Object[]{tmp_node});
+		log.log(Level.TRACE, "Created tmp_node1: {0}", new Object[]{tmp_node});
 		root = new DBElement(this.root_name);
-		log.log(Level.FINEST, "Created root: {0} @ {1}", new Object[]{root, this.toString()});
+		log.log(Level.TRACE, "Created root: {0} @ {1}", new Object[]{root, this.toString()});
 
 	}
 
@@ -622,7 +622,7 @@ public class XMLDB {
 		if ((children != null) && (children.size() > 0)) {
 			this.node_name = children.get(0).getName();
 		}    // end of if (children != null && children.size() > 0)
-		log.finest(root.formatedString(0, 2));
+		log.log(Level.TRACE, root.formatedString(0, 2));
 	}
 
 	/**
@@ -661,7 +661,7 @@ public class XMLDB {
 			throws NodeNotFoundException {
 		DBElement node1 = getNode1(node1_id);
 
-		log.log(Level.FINEST, "Getting node, node1_id: {0}, subnode: {1}, auto_create: {2}, node1: {3} @ {4}",
+		log.log(Level.TRACE, "Getting node, node1_id: {0}, subnode: {1}, auto_create: {2}, node1: {3} @ {4}",
 				new Object[]{node1_id, subnode, auto_create, node1, this});
 
 		if (subnode != null) {
@@ -739,7 +739,7 @@ public class XMLDB {
 				try {
 					sync();
 				} catch (Exception e) {
-					log.severe("Can't save repository file: " + e);
+					log.log(Level.ERROR, "Can't save repository file: " + e);
 				}
 			}    // end of while (true)
 		}

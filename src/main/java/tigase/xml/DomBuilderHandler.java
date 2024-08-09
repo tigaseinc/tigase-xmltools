@@ -18,8 +18,8 @@
 package tigase.xml;
 
 import java.util.*;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import java.lang.System.Logger.Level;
+import java.lang.System.Logger;
 
 /**
  * <code>DomBuilderHandler</code> - implementation of <code>SimpleHandler</code> building <em>DOM</em> strctures during
@@ -38,7 +38,7 @@ public class DomBuilderHandler
 		implements SimpleHandler {
 
 	private static ElementFactory defaultFactory = new DefaultElementFactory();
-	private static Logger log = Logger.getLogger("tigase.xml.DomBuilderHandler");
+	private static Logger log = System.getLogger(DomBuilderHandler.class.getName());
 	private LinkedList<Element> all_roots = new LinkedList<Element>();
 	private ElementFactory customFactory = null;
 	private Stack<Element> el_stack = new Stack<Element>();
@@ -63,14 +63,7 @@ public class DomBuilderHandler
 	}
 
 	public void startElement(StringBuilder name, StringBuilder[] attr_names, StringBuilder[] attr_values) {
-		if (log.isLoggable(Level.FINEST)) {
-			log.finest("Start element name: " + name);
-			log.finest("Element attributes names: " + Arrays.toString(attr_names));
-			log.finest("Element attributes values: " + Arrays.toString(attr_values));
-		}
-		//System.out.println("Start element name: "+name);
-		//System.out.println("Element attributes names: "+Arrays.toString(attr_names));
-		//System.out.println("Element attributes values: "+Arrays.toString(attr_values));
+		log.log(Level.TRACE, () -> "Start element name: " + name + "; Element attributes names: " + Arrays.toString(attr_names) + "; Element attributes values: " + Arrays.toString(attr_values));
 
 		// Look for 'xmlns:' declarations:
 		if (attr_names != null) {
@@ -120,9 +113,7 @@ public class DomBuilderHandler
 	}
 
 	public void elementCData(StringBuilder cdata) {
-		if (log.isLoggable(Level.FINEST)) {
-			log.finest("Element CDATA: " + cdata);
-		}
+		log.log(Level.TRACE, () -> "Element cdata: " + cdata );
 		//System.out.println("Element CDATA: "+cdata);
 		try {
 			el_stack.peek().addCData(cdata.toString());
@@ -133,9 +124,7 @@ public class DomBuilderHandler
 	}
 
 	public boolean endElement(StringBuilder name) {
-		if (log.isLoggable(Level.FINEST)) {
-			log.finest("End element name: " + name);
-		}
+		log.log(Level.TRACE, () -> "End element name: " + name);
 		//System.out.println("End element name: "+name);
 
 		String tmp_name = name.toString();
@@ -162,10 +151,8 @@ public class DomBuilderHandler
 		}
 		if (el_stack.isEmpty()) {
 			all_roots.offer(elem);
-			if (log.isLoggable(Level.FINEST)) {
-				log.finest("Adding new request: " + elem.toString());
-			}
-		} // end of if (el_stack.isEmpty())
+			log.log(Level.TRACE, () -> "Adding new request: " + elem.toString());
+		}
 		else {
 			el_stack.peek().addChild(elem);
 		} // end of if (el_stack.isEmpty()) else
@@ -173,9 +160,7 @@ public class DomBuilderHandler
 	}
 
 	public void otherXML(StringBuilder other) {
-		if (log.isLoggable(Level.FINEST)) {
-			log.finest("Other XML content: " + other);
-		}
+		log.log(Level.TRACE, () -> "Other XML content: " + other);
 		// Just ignore
 	}
 
